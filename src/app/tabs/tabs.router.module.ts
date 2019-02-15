@@ -8,11 +8,25 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'home',
+        path: 'card',
         children: [
           {
+            path: 'card',
+            loadChildren: '../card/card-deck/card-deck.module#CardDeckPageModule'
+          },
+          {
+            path: ':cardDeckGroup/:cardDeck',
+            children: [
+              {
+                path: '',
+                loadChildren: '../card/card-listing/card-listing.module#CardListingPageModule'
+              }
+            ]
+          },
+          {
             path: '',
-            loadChildren: '../home/home.module#HomePageModule'
+            redirectTo: 'card',
+            pathMatch: 'full'
           }
         ]
       },
@@ -36,14 +50,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/home',
+        redirectTo: '/tabs/card',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/home',
+    redirectTo: '/tabs/card',
     pathMatch: 'full'
   }
 ];
